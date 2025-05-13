@@ -4,6 +4,7 @@ const facultys = require('./api/routes/faculty');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const productRoute = require('./api/routes/product')
+const home = require('./api/routes/home');
    
 
 mongoose.connect('mongodb+srv://hemantkumar692:u8G7GR8vq709XaJk@cluster0.z5upxof.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
@@ -20,9 +21,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-
+app.use('/',home);
 app.use('/faculty',facultys);
 app.use('/product',productRoute)
+
 
 
 app.use((req, res, next) => {

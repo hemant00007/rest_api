@@ -4,7 +4,7 @@ const Product = require('../model/productmodel');
 const mongoose = require('mongoose');
 
 
-// router.get('/list',(req,res,next) => {
+// router.get('/list') get request
 router.get('/',(req,res,next) => {
     Product.find()
     .then(result => {
@@ -22,7 +22,7 @@ router.get('/',(req,res,next) => {
         })
     })
 })
-
+// this is a post request 
 router.post('/',(req,res,next) => {
  const product = new Product({
     _id: new mongoose.Types.ObjectId(),
@@ -39,7 +39,7 @@ router.post('/',(req,res,next) => {
         message: 'Product created successfully',})
  })
 })
-
+// get request for a specific product
 router.get('/:productId',(req,res,next) => {
     const id = req.params.productId;
     console.log(id);
@@ -62,6 +62,55 @@ router.get('/:productId',(req,res,next) => {
         res.status(500).json({
             status:false,
             message: 'Error fetching product',
+            error: err
+        })
+    })
+})
+
+// this is a delete request
+router.delete('/:productId',(req,res,next) => {
+    const id = req.params.productId;
+    Product.deleteOne({_id: id})
+    .then(result => {
+        res.status(200).json({
+            status:true,
+            message: 'Product deleted successfully',
+            data: result
+        })
+    })
+    .catch(err => {
+        res.status(500).json({
+            status:false,
+            message: 'Error deleting product',
+            error: err
+        })
+    })
+})
+// this is a put request
+router.put('/:productId',(req,res,next) => {
+    const id = req.params.productId;
+   
+    Product.findOneAndUpdate({_id: id},
+        
+        {
+        $set: {
+             name: req.body.name,
+            price: req.body.price,
+            productImage: req.body.productImage,
+            description: req.body.description
+        }
+    })
+    .then(result => {
+        res.status(200).json({
+            status:true,
+            message: 'Product updated successfully',
+           
+        })
+    })
+    .catch(err => {
+        res.status(500).json({
+            status:false,
+            message: 'Error updating product',
             error: err
         })
     })
