@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const productRoute = require('./api/routes/product')
 const home = require('./api/routes/home');
    const userRoute = require('./api/routes/user');
+   const welcome = require('./api/routes/welcome');
 
 mongoose.connect('mongodb+srv://hemantkumar692:u8G7GR8vq709XaJk@cluster0.z5upxof.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 mongoose.connection.on('error', err => {
@@ -25,6 +26,7 @@ app.use('/',home);
 app.use('/faculty',facultys);
 app.use('/product',productRoute)
 app.use('/user',userRoute);
+app.use('/',welcome);
 
 
 
