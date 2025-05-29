@@ -3,7 +3,8 @@ const router = express.Router();
 
 router.get("/", (req, res, next) => {
   res.status(200).json({
-    msg: "this is dashboard hemant",
+    status: 200,
+    msg: "this is dashboard page",
   });
 });
 module.exports = router;
